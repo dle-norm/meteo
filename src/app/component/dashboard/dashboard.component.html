@@ -1,8 +1,9 @@
 <div>
+    <h2>Temps le {{currentTime | date : 'yyyy-MM-dd HH:mm'}}</h2>
+    <p *ngIf="!isLoading && data[0].ville !== 'Votre position'">Acceptez la geolocalisation pour voir le temps près de votre position.</p>
     <mat-form-field>
       <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
-    <div>{{currentTime | date : 'yyyy-MM-dd HH:mm'}}</div>
 </div>
 <mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="ville">
