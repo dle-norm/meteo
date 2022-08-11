@@ -1,23 +1,26 @@
+import { WeatherWeekComponent } from './weather-week.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WeatherWeekComponent } from './weather-week.component';
-
-describe('WeatherWeekComponent', () => {
+describe('AppComponent', () => {
   let component: WeatherWeekComponent;
   let fixture: ComponentFixture<WeatherWeekComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WeatherWeekComponent ]
-    })
-    .compileComponents();
+      declarations: [WeatherWeekComponent],
+      providers: [
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    }).compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(WeatherWeekComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('Init test : should create', () => {
     expect(component).toBeTruthy();
   });
 });

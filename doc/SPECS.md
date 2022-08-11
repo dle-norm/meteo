@@ -11,3 +11,14 @@
 * test it
 * lint the project
 * write 2 more steps
+
+## Step 3
+
+* fix warning jest
+* weather-week component
+* test it
+
+## Step 4
+
+* add geolocalisation
+* make a heroku app at https://meteo.herokuapp.com/
