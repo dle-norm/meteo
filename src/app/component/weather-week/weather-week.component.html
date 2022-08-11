@@ -1,1 +1,25 @@
-<p>weather-week works!</p>
+<div>
+    <mat-form-field>
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <div>{{city}}</div>
+</div>
+<mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.date | date : 'yyyy-MM-dd'}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="temperature">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Température </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.temperature}}°C </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="humidite">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Humidité </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.humidite}}% </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<app-spinner [loading]="isLoading"></app-spinner>
+<mat-paginator [pageSize]="7" [pageSizeOptions]="[2, 4, 7]">
+</mat-paginator>
