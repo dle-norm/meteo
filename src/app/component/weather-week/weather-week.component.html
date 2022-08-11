@@ -1,8 +1,11 @@
-<div>
+<div class="header">
+    <h2>Temps sur 7 jours sur {{city}}</h2>
+    <button mat-icon-button color="primary" (click)="redirectToList()">
+        <mat-icon class="mat-18">keyboard_backspace</mat-icon>
+    </button>
     <mat-form-field>
       <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
-    <div>{{city}}</div>
 </div>
 <mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="date">

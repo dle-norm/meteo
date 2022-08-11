@@ -19,6 +19,7 @@ describe('AppService', () => {
     latitude: 52.60,
     longitude: 47.23
   }];
+
   const provide = (mock: any): any => mock;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -37,16 +38,23 @@ describe('AppService', () => {
   });
 
   it('API test : should return geo data', async () => {
-    const httpMock = { get: jest.fn(() => of(expectedResult)) };
+    const httpMock = { get: jest.fn(() => of(expectedResult2)) };
     service = new AppService(provide(httpMock));
-    const volumes$ = service.getGeo('Paris');
-    expect(await lastValueFrom(volumes$)).toMatchObject(expectedResult);
+    const geo$ = service.getGeo('Paris');
+    expect(await lastValueFrom(geo$)).toMatchObject(expectedResult2);
   });
 
   it('API test : should return meteo data', async () => {
-    const httpMock = { get: jest.fn(() => of(expectedResult2)) };
+    const httpMock = { get: jest.fn(() => of(expectedResult)) };
     service = new AppService(provide(httpMock));
-    const categories$ = service.getMeteo('52.60', '47.23');
-    expect(await lastValueFrom(categories$)).toMatchObject(expectedResult2);
+    const meteo$ = service.getMeteo('52.60', '47.23');
+    expect(await lastValueFrom(meteo$)).toMatchObject(expectedResult);
+  });
+
+  it('API test : should return 7 days meteo data', async () => {
+    const httpMock = { get: jest.fn(() => of(expectedResult)) };
+    service = new AppService(provide(httpMock));
+    const meteo$ = service.getWeekMeteo('52.60', '47.23', '2022-08-11', '2022-08-12');
+    expect(await lastValueFrom(meteo$)).toMatchObject(expectedResult);
   });
 });

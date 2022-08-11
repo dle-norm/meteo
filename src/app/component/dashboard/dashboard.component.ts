@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   private cityList: string[] = ['Ajaccio', 'Marseille', 'Dijon', 'Toulouse', 'Bordeaux', 'Rennes', 'Nantes', 'Orléans', 'Lille', 'Strasbourg', 'Lyon', 'Paris', 'Rouen'];
   public dataSource = new MatTableDataSource<Dashboard>();
   public isLoading = true;
+  public data: Dashboard[] = [];
   public currentTime: string = new Date().toISOString();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -29,8 +30,24 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.isLoading = false;
   }
 
+  getLocation (): void {
+
+  }
+
   async getAllMeteo (): Promise<void> {
-    const data: Dashboard[] = [];
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const meteo$ = this.service.getMeteo(position.coords.latitude.toString(), position.coords.longitude.toString());
+        const meteo: MeteoResponse = await lastValueFrom(meteo$);
+        const id: number = this.giveCurrentTimeId(meteo.hourly.time);
+        const temp: Dashboard = {
+          ville: 'Votre position',
+          temperature: meteo.hourly.temperature_2m[id],
+          humidite: meteo.hourly.relativehumidity_2m[id]
+        };
+        this.data.push(temp);
+      });
+    }
     for (let i = 0; i < this.cityList.length; i++) {
       const pos$ = this.service.getGeo(this.cityList[i]);
       const geo: GeoJson[] = (await lastValueFrom(pos$)).results;
@@ -45,10 +62,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           temperature: meteo.hourly.temperature_2m[id],
           humidite: meteo.hourly.relativehumidity_2m[id]
         };
-        data.push(temp);
+        this.data.push(temp);
       }
     }
-    this.dataSource.data = data;
+    this.dataSource.data = this.data;
   }
 
   async redirectToDetails (city: string): Promise<void> {
