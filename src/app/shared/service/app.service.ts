@@ -34,4 +34,14 @@ export class AppService {
       map(response => response)
     );
   }
+
+  /**
+   * Get meteo by city name on 7 days.
+   * @param city
+   */
+  getWeekMeteo (latitude: string, longitude: string, dateStart: string, dateEnd: string): Observable<MeteoResponse> {
+    return this.httpClient.get<MeteoResponse>(`http://localhost:4200/meteo/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,relativehumidity_2m&timezone=auto&start_date=${dateStart}&end_date=${dateEnd}`, { headers: this.headers }).pipe(
+      map(response => response)
+    );
+  }
 }

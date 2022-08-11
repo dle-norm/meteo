@@ -7,6 +7,7 @@ import { lastValueFrom } from 'rxjs';
 import { MeteoResponse } from 'src/app/shared/interface/meteo-json';
 import { GeoJson } from 'src/app/shared/interface/geo-json';
 import { Dashboard } from 'src/app/shared/interface/dashboard';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,20 +15,21 @@ import { Dashboard } from 'src/app/shared/interface/dashboard';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
-  public displayedColumns = ['ville', 'temperature', 'humidite'];
+  public displayedColumns = ['ville', 'temperature', 'humidite', 'details'];
   private cityList: string[] = ['Ajaccio', 'Marseille', 'Dijon', 'Toulouse', 'Bordeaux', 'Rennes', 'Nantes', 'Orléans', 'Lille', 'Strasbourg', 'Lyon', 'Paris', 'Rouen'];
   public dataSource = new MatTableDataSource<Dashboard>();
   public isLoading = true;
+  public currentTime: string = new Date().toISOString();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor (private service: AppService) { }
+  constructor (private service: AppService, private router: Router) { }
   async ngOnInit () {
     await this.getAllMeteo();
     this.isLoading = false;
   }
 
-  async getAllMeteo () {
+  async getAllMeteo (): Promise<void> {
     const data: Dashboard[] = [];
     for (let i = 0; i < this.cityList.length; i++) {
       const pos$ = this.service.getGeo(this.cityList[i]);
@@ -37,10 +39,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       } else {
         const meteo$ = this.service.getMeteo(geo[0].latitude.toString(), geo[0].longitude.toString());
         const meteo: MeteoResponse = await lastValueFrom(meteo$);
+        const id: number = this.giveCurrentTimeId(meteo.hourly.time);
         const temp: Dashboard = {
           ville: this.cityList[i],
-          temperature: meteo.hourly.temperature_2m[0],
-          humidite: meteo.hourly.relativehumidity_2m[0]
+          temperature: meteo.hourly.temperature_2m[id],
+          humidite: meteo.hourly.relativehumidity_2m[id]
         };
         data.push(temp);
       }
@@ -48,8 +51,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.dataSource.data = data;
   }
 
-  redirectToDetails (ville: string) {
-
+  async redirectToDetails (city: string): Promise<void> {
+    await this.router.navigate([`/week/${city}`]);
   }
 
   ngAfterViewInit (): void {
@@ -57,7 +60,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  public doFilter = (value: string) => {
+  public doFilter (value: string): void {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
   };
+
+  public giveCurrentTimeId (time: string[]): number {
+    for (let i = 0; i < time.length; i++) {
+      if (time[i].split('T')[1].split(':')[0] === this.currentTime.split('T')[1].split(':')[0]) {
+        return i;
+      }
+    }
+  }
 }
