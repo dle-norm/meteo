@@ -1,25 +1,21 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AppService } from '../../shared/service/app.service';
-import { DashboardComponent } from './dashboard.component';
+import { MenuComponent } from './menu.component';
 
 describe('AppComponent', () => {
-  let component: DashboardComponent;
-  let fixture: ComponentFixture<DashboardComponent>;
-  const mockSanityService = {
-    urlFor: jest.fn()
-  }
-    ;
+  let component: MenuComponent;
+  let fixture: ComponentFixture<MenuComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DashboardComponent],
-      providers: [{ provide: AppService, useValue: mockSanityService }],
+      declarations: [MenuComponent],
+      providers: [
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DashboardComponent);
+    fixture = TestBed.createComponent(MenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

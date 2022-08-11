@@ -1,0 +1,36 @@
+$padding-nav-link: 1rem;
+$border-link-width: 3px;
+
+
+nav {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.nav-list {
+  $nav: &;
+  list-style: none;
+  padding: 0;
+
+  &__link {
+    align-items: center;
+    border-left: #{$border-link-width} solid transparent;
+    color: currentColor;
+    cursor: pointer;
+    display: flex;
+    gap: 0.25em;
+    padding: calc(#{$padding-nav-link} / 2) #{$padding-nav-link};
+    user-select: none;
+    text-decoration: none;
+
+    &--active {
+      text-decoration: underline;
+      border-color: #337ab7;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+<nav>
+    <ul class="nav-list" id="nav-list">
+      <!-- Accueil -->
+      <li class="nav-list__item">
+        <a (click)="closeNav()" class="nav-list__link" routerLink="/accueil" routerLinkActive="nav-list__link--active">
+          <mat-icon class="nav-list__link-icon">home</mat-icon>
+          <span [innerHTML]="'Accueil'" class="nav-list__link-text"></span>
+        </a>
+      </li>
+
+      <!-- Dashboard-->
+      <li class="nav-list__item">
+        <a
+          (click)="closeNav()"
+          class="nav-list__link"
+          routerLink="/dashboard"
+          routerLinkActive="nav-list__link--active"
+        >
+          <mat-icon class="nav-list__link-icon">cloud</mat-icon>
+          <span [innerHTML]="'Météo en direct'" class="nav-list__link-text"></span>
+        </a>
+      </li>
+    </ul>
+</nav>
+  

@@ -1,0 +1,19 @@
+{
+    "/geo":{
+        "target": "https://geocoding-api.open-meteo.com/v1",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/geo": ""
+          }
+
+    },
+    "/meteo": {
+        "target": "https://api.open-meteo.com/v1",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/meteo": ""
+          }
+    }
+}
