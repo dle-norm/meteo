@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  geo: "http://localhost:4200/geo",
+  meteo: "http://localhost:4200/meteo"
 };
 
 /*

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { GeoResponse } from '../interface/geo-json';
 import { MeteoResponse } from '../interface/meteo-json';
 
@@ -20,7 +21,7 @@ export class AppService {
    * @param city
    */
   getGeo (city: string): Observable<GeoResponse> {
-    return this.httpClient.get<GeoResponse>(`http://localhost:4200/geo/search?name=${city}`, { headers: this.headers }).pipe(
+    return this.httpClient.get<GeoResponse>(`${environment.geo}/search?name=${city}`).pipe(
       map(response => response)
     );
   }
@@ -30,7 +31,7 @@ export class AppService {
    * @param city
    */
   getMeteo (latitude: string, longitude: string): Observable<MeteoResponse> {
-    return this.httpClient.get<MeteoResponse>(`http://localhost:4200/meteo/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,relativehumidity_2m&timezone=auto`, { headers: this.headers }).pipe(
+    return this.httpClient.get<MeteoResponse>(`${environment.meteo}/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,relativehumidity_2m&timezone=auto`).pipe(
       map(response => response)
     );
   }
@@ -40,7 +41,7 @@ export class AppService {
    * @param city
    */
   getWeekMeteo (latitude: string, longitude: string, dateStart: string, dateEnd: string): Observable<MeteoResponse> {
-    return this.httpClient.get<MeteoResponse>(`http://localhost:4200/meteo/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,relativehumidity_2m&timezone=auto&start_date=${dateStart}&end_date=${dateEnd}`, { headers: this.headers }).pipe(
+    return this.httpClient.get<MeteoResponse>(`${environment.meteo}/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,relativehumidity_2m&timezone=auto&start_date=${dateStart}&end_date=${dateEnd}`).pipe(
       map(response => response)
     );
   }
