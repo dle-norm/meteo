@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     SpinnerComponent
   ],
   imports: [
+    MatTooltipModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatSelectModule,
