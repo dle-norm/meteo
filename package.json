@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open --proxy-config proxy.conf.json",
+    "start": "ng build;node server.js",
+    "dev": "ng serve --open --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "heroku-postbuild": "ng build;node server.js & npm run lint",
+    "heroku-postbuild": "ng build",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint \"src/app/**\" --ignore-pattern \"*.scss\" --ignore-pattern \"*.html\"",

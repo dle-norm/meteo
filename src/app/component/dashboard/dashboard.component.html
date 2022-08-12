@@ -21,7 +21,7 @@
     <ng-container matColumnDef="details">
       <mat-header-cell *matHeaderCellDef> Details </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-icon-button color="primary" (click)="redirectToDetails(element.ville)">
+        <button matTooltip="La météo sur 7 jours" mat-icon-button color="primary" (click)="redirectToDetails(element.ville)">
             <mat-icon class="mat-18">reorder</mat-icon>
         </button>
       </mat-cell>

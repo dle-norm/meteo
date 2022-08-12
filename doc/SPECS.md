@@ -21,4 +21,4 @@
 ## Step 4
 
 * add geolocalisation
-* make a heroku app at https://meteo.herokuapp.com/
+* make a heroku app at https://meteo-dln.herokuapp.com/
