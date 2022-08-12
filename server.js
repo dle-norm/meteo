@@ -3,9 +3,10 @@ const path = require('path');
 const app = express();
 var allowedOrigins = [
     'http://localhost:8080',
-    'https://meteo-dln.herokuapp.com/',
+    'https://meteo-dln.herokuapp.com',
     'https://geocoding-api.open-meteo.com',
-    'https://api.open-meteo.com'];
+    'https://api.open-meteo.com',
+    '/'];
 var cors = require('cors');
 app.use(cors({
     origin: function(origin, callback){
@@ -20,14 +21,14 @@ app.use(cors({
       return callback(null, true);
     }
 }));
-app.use(express.static(__dirname + '/dist/meteo'));
+app.use(express.static('./dist/meteo'));
 app.get('/*', function(req,res) {
     res.header("Access-Control-Allow-Origin", "*")
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested, Content-Type, Accept Authorization"
     )
-    res.sendFile(path.join(__dirname+
-    '/dist/meteo/index.html'));
+    res.sendFile(path.join(
+    './dist/meteo/index.html'));
 });
 app.listen(process.env.PORT || 8080);
