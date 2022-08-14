@@ -1,5 +1,5 @@
 <div>
-    <h2>Temps le {{currentTime | date : 'yyyy-MM-dd HH:mm'}}</h2>
+    <h2>Temps le {{adjustedTime | date : 'yyyy-MM-dd HH:mm'}}</h2>
     <p *ngIf="!isLoading && data[0].ville !== 'Votre position'">Acceptez la geolocalisation pour voir le temps près de votre position.</p>
     <mat-form-field>
       <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">

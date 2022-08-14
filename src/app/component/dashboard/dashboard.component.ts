@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   public isLoading = true;
   public data: Dashboard[] = [];
   public currentTime: string = new Date().toISOString();
+  public adjustedTime: string = new Date().toISOString();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -83,7 +84,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   public giveCurrentTimeId (time: string[]): number {
     for (let i = 0; i < time.length; i++) {
-      if (time[i].split('T')[1].split(':')[0] === this.currentTime.split('T')[1].split(':')[0]) {
+      if (+time[i].split('T')[1].split(':')[0] === +this.currentTime.split('T')[1].split(':')[0] + 2) {
+        this.adjustedTime = time[i];
         return i;
       }
     }

@@ -82,7 +82,7 @@ export class WeatherWeekComponent implements OnInit, AfterViewInit {
     const ret: number[] = [];
     for (let i = 0; i < time.length; i++) {
       // we take only the weather weekly at 12 am
-      if (time[i].split('T')[1].split(':')[0] === '12') {
+      if (+time[i].split('T')[1].split(':')[0] + 2 === 12) {
         ret.push(i);
       }
     }
