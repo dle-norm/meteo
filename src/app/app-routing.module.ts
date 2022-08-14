@@ -21,7 +21,12 @@ const routes: Routes = [
   {
     path: 'accueil',
     component: AccueilComponent
-  }
+  },
+  {
+    path: 'error',
+    component: AccueilComponent
+  },
+  { path: '**', redirectTo: '/accueil' }
 ];
 
 @NgModule({
